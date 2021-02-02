@@ -16,7 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install deps
-        if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libudev-dev build-essential
@@ -40,7 +39,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install deps
-      if: matrix.platform == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y libudev-dev build-essential
@@ -133,7 +131,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install deps
-      if: matrix.platform == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y libudev-dev build-essential
