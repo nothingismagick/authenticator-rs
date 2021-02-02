@@ -130,11 +130,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y libudev-dev
     steps:
     - uses: actions/checkout@v2
+    - name: Install deps
+      if: matrix.platform == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libudev-dev build-essential
     - name: Install rustfmt with nightly toolchain
       uses: actions-rs/toolchain@v1
       with:
