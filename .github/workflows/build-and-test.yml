@@ -26,7 +26,7 @@ jobs:
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --manifest-path=/Cargo.toml --all-targets --all-features -- -A renamed_and_removed_lints -A clippy::new-ret-no-self -D warnings
+          args: --manifest-path=Cargo.toml --all-targets --all-features -- -A renamed_and_removed_lints -A clippy::new-ret-no-self -D warnings
           name: clippy
   
   format:
@@ -46,7 +46,7 @@ jobs:
     - uses: actions-rs/cargo@v1
       with:
         command: fmt
-        args: --manifest-path=/Cargo.toml --all -- --check
+        args: --manifest-path=Cargo.toml --all -- --check
 
   build-and-test:
     runs-on: ${{ matrix.os }}
@@ -104,13 +104,13 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: build
-        args: --manifest-path=${{ matrix.project }}Cargo.toml --all --release
+        args: --manifest-path=Cargo.toml --all --release
 
     - name: Run tests
       uses: actions-rs/cargo@v1
       with:
         command: test
-        args: --manifest-path=${{ matrix.project }}Cargo.toml --all-targets --all-features
+        args: --manifest-path=Cargo.toml --all-targets --all-features
 
   fuzz:
     runs-on: ubuntu-latest
@@ -123,10 +123,10 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
           profile: minimal
-          toolchain: nightly
+          toolchain: stable
           override: true
           components: fuzz
     - uses: actions-rs/cargo@v1
       with:
         command: fuzz
-        args: --manifest-path=/Cargo.toml build
+        args: --manifest-path=Cargo.toml build
