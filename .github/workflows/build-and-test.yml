@@ -130,12 +130,14 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
-    - name: Install deps
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libudev-dev build-essential
     - name: Install rustfmt with nightly toolchain
       uses: actions-rs/toolchain@v1
       with:
         toolchain: nightly
-      run: cargo install cargo-fuzz && cargo +nightly fuzz build
+    - name: Install deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libudev-dev build-essential
+        cargo install cargo-fuzz 
+    - name: Fuzz
+      run: cargo +nightly fuzz build
