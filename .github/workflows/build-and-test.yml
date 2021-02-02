@@ -137,10 +137,5 @@ jobs:
     - name: Install rustfmt with nightly toolchain
       uses: actions-rs/toolchain@v1
       with:
-          toolchain: stable
-          override: true
-          components: fuzz
-    - uses: actions-rs/cargo@v1
-      with:
-        command: fuzz
-        args: --manifest-path=Cargo.toml build
+        toolchain: stable
+      run: cargo fuzz build    
