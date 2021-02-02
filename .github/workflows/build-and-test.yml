@@ -137,5 +137,5 @@ jobs:
     - name: Install rustfmt with nightly toolchain
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: stable
-      run: cargo fuzz build    
+        toolchain: nightly
+    - run: cargo +nightly fuzz build    
