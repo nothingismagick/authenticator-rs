@@ -12,10 +12,7 @@ jobs:
   clippy:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y libudev-dev 
+      fail-fast: false 
     steps:
       - uses: actions/checkout@v2
       - name: Install deps
@@ -40,9 +37,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y libudev-dev
     steps:
     - uses: actions/checkout@v2
     - name: Install deps
@@ -144,7 +138,6 @@ jobs:
     - name: Install rustfmt with nightly toolchain
       uses: actions-rs/toolchain@v1
       with:
-          profile: minimal
           toolchain: stable
           override: true
           components: fuzz
