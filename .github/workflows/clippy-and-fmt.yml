@@ -1,0 +1,55 @@
+name: Clippy and Format
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  clippy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libudev-dev build-essential
+      - name: Install clippy with stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            profile: minimal
+            toolchain: stable
+            override: true
+            components: clippy
+      - uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --manifest-path=Cargo.toml --all-targets --all-features -- -A renamed_and_removed_lints -A clippy::new-ret-no-self -D warnings
+          name: clippy
+  
+  format:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libudev-dev build-essential
+    - name: Install rustfmt with nightly toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+          components: rustfmt
+    - uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --manifest-path=Cargo.toml --all -- --check
