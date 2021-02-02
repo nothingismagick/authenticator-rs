@@ -139,5 +139,4 @@ jobs:
       with:
         toolchain: nightly
     - run: |
-      cargo install cargo-fuzz
-      cargo +nightly fuzz build    
+      cargo install cargo-fuzz && cargo +nightly fuzz build
