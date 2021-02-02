@@ -138,4 +138,6 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: nightly
-    - run: cargo +nightly fuzz build    
+    - run: |
+      cargo install cargo-fuzz
+      cargo +nightly fuzz build    
